@@ -19,6 +19,8 @@ RUN set -euExo pipefail && shopt -s inherit_errexit && \
     mv "$( go env GOPATH )/bin/yq" /usr/local/bin/ && \
     go install github.com/redhat-openshift-ecosystem/openshift-preflight/cmd/preflight@v1.14.1 && \
     mv "$( go env GOPATH )/bin/preflight" /usr/local/bin/ && \
+    go install github.com/operator-framework/operator-manifest-tools@v0.11.0 && \
+    mv "$( go env GOPATH )/bin/operator-manifest-tools" /usr/local/bin/ && \
     mkdir -p /go/src/k8s.io/ && \
     cd /go/src/k8s.io/ && \
     git clone --depth=1 --branch v1.33.3 https://github.com/kubernetes/kubernetes.git && \
