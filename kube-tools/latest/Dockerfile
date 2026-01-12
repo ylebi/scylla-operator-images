@@ -34,6 +34,13 @@ RUN set -euExo pipefail && shopt -s inherit_errexit && \
     esac && \
     /tmp/download-file.sh "https://github.com/operator-framework/operator-registry/releases/download/v1.56.0/linux-${architecture}-opm" "${checksum}" | cat >/usr/local/bin/opm  && \
     chmod +x /usr/local/bin/opm && \
+    case $(arch) in \
+        x86_64) architecture="x86_64" checksum="6ea0bfb8029bb5d2b6f0d399eda51e0943d9d2bfebc72a00f714288972bd4509cc9531e5452fbdd85c6bd797046953e5cca9de74cb5905db64940e3ec36eaa1c" ;; \
+        aarch64) architecture="aarch64" checksum="490daad1ca531f2a8a13e109cf985b81606b51c6ff3925bc7ca2a8f7fd5d22c1d5dbf0a75db920018c76079fab8802a08c507fa8aca4d430123271e4abd2be7c" ;; \
+        *) exit 42;; \
+    esac && \
+    /tmp/download-file.sh "https://github.com/tektoncd/cli/releases/download/v0.43.0/tkn_0.43.0_Linux_${architecture}.tar.gz" "${checksum}" | tar -C /usr/local/bin -xzf - tkn && \
+    chmod +x /usr/local/bin/tkn && \
     mkdir -p /go/src/github.com/operator-framework && \
     cd /go/src/github.com/operator-framework && \
     # TODO: replace to upstream once https://github.com/operator-framework/operator-sdk/pull/6978 is released \
