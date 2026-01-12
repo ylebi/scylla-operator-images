@@ -25,6 +25,7 @@ RUN set -euExo pipefail && shopt -s inherit_errexit && \
     go install github.com/mikefarah/yq/v4@v4.44.3 && \
     go install sigs.k8s.io/kustomize/kustomize/v5@v5.7.1 && \
     go install helm.sh/helm/v3/cmd/helm@1e210a2 && echo "installed helm v3.12.2" && \
+    go install github.com/onsi/ginkgo/v2/ginkgo@v2.27.4 && \
     mv "$( go env GOPATH )/bin/yq" /usr/local/bin/ && \
     mkdir -p /go/src/github.com/operator-framework && \
     cd /go/src/github.com/operator-framework && \
